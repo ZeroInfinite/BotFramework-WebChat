@@ -8,7 +8,6 @@ import { FormatState } from './Store';
 const Attachments = (props: {
     attachments: Attachment[],
     attachmentLayout: AttachmentLayout,
-    measureParentHorizontalOverflow?: () => number,
     format: FormatState,
     onCardAction: (type: string, value: string) => void,
     onImageLoad: () => void
@@ -33,21 +32,21 @@ const Attachments = (props: {
         </div>
 }
 
-interface Props {
+export interface ActivityViewProps {
     format: FormatState,
     activity: Activity,
-    measureParentHorizontalOverflow?: () => number,
     onCardAction: (type: string, value: string) => void,
     onImageLoad: () => void
 }
 
-export class ActivityView extends React.Component<Props, {}> {
-    constructor(props: Props) {
+export class ActivityView extends React.Component<ActivityViewProps, {}> {
+    constructor(props: ActivityViewProps) {
         super(props)
     }
 
-    shouldComponentUpdate(nextProps: Props) {
-        return this.props.activity !== nextProps.activity || this.props.format !== nextProps.format;
+    shouldComponentUpdate(nextProps: ActivityViewProps) {
+        // if the activity changed, re-render
+        return this.props.activity != nextProps.activity || this.props.format != nextProps.format;
     }
 
     render() {
